@@ -38,7 +38,6 @@ O **Majuli Crochê** é uma aplicação ASP.NET Core MVC que foi projetada para 
 - **Font Awesome**: Biblioteca de ícones para uma melhor apresentação visual.
 
 ## Como Executar o Projeto
-
-1. Clone este repositório:
+Clone este repositório:
    ```bash
    git clone https://github.com/juliapgs/majulicroche.git
