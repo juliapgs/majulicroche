@@ -1,48 +1,54 @@
 ﻿@model majulicroche.Models.Venda
 
 @{
-    ViewData["Title"] = "Criar Venda";
+    ViewData["Title"] = "Create";
 }
 
-<h2>Criar Venda</h2>
+<h1>Vendas</h1>
 
-<form asp-action="Create">
-    <div class="form-group">
-        <label asp-for="ValorTotal" class="control-label"></label>
-        <input asp-for="ValorTotal" class="form-control" />
-        <span asp-validation-for="ValorTotal" class="text-danger"></span>
+<h4>Cadastrar venda</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+    <form asp-action="Create">
+        <div class="form-group">
+            <label asp-for="ValorTotal" class="control-label"></label>
+            <input asp-for="ValorTotal" class="form-control" />
+            <span asp-validation-for="ValorTotal" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="FormaDePagamento" class="control-label"></label>
+            <input asp-for="FormaDePagamento" class="form-control" />
+            <span asp-validation-for="FormaDePagamento" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Endereco" class="control-label"></label>
+            <input asp-for="Endereco" class="form-control" />
+            <span asp-validation-for="Endereco" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Contato" class="control-label"></label>
+            <input asp-for="Contato" class="form-control" />
+            <span asp-validation-for="Contato" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CupomId" class="control-label">Cupom</label>
+            <select asp-for="CupomId" class="form-control" asp-items="ViewBag.CupomId"></select>
+            <span asp-validation-for="CupomId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Criar" class="btn btn-primary" />
+        </div>
+    </form>
     </div>
-    <div class="form-group">
-        <label asp-for="FormaDePagamento" class="control-label"></label>
-        <input asp-for="FormaDePagamento" class="form-control" />
-        <span asp-validation-for="FormaDePagamento" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Endereco" class="control-label"></label>
-        <input asp-for="Endereco" class="form-control" />
-        <span asp-validation-for="Endereco" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Contato" class="control-label"></label>
-        <input asp-for="Contato" class="form-control" />
-        <span asp-validation-for="Contato" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="CupomId" class="control-label">Cupom</label>
-        <select asp-for="CupomId" class="form-control" asp-items="ViewBag.CupomId"></select>
-        <span asp-validation-for="CupomId" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Criar" class="btn btn-primary" />
-    </div>
-</form>
+</div>
 
 @section Scripts {
+    <!-- Inclua o script de validação -->
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-}
-@section scripts {
-    <!-- Outros links e scripts -->
+
+    <!-- Inclua os outros links e scripts, como Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 }

@@ -1,11 +1,16 @@
-﻿namespace majulicroche.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace majulicroche.Models
 {
     public class Fornecedor
     {
         public int Id { get; set; }
-        public string Nome { get; set; }
-        public string Contato { get; set; }
-        public string Email { get; set; }
-        public string Telefone { get; set; }
+        public required string Nome { get; set; }
+
+        [DataType(DataType.PhoneNumber)]
+        [Display(Name = "Telefone de Contato")]
+        public required string Contato { get; set; }
+        public required string Email { get; set; }
+        public required string Endereco { get; set; }
     }
 }
