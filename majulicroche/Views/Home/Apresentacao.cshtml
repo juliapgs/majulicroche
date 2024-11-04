@@ -1,0 +1,43 @@
+﻿@model IEnumerable<majulicroche.Models.Produto>
+
+@{
+    ViewData["Title"] = "Produtos";
+}
+
+<h1>Produtos</h1>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Tamanho</th>
+            <th>Cor</th>
+            <th>Valor</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Nome)</td>
+                <td>@Html.DisplayFor(modelItem => item.Tamanho)</td>
+                <td>@Html.DisplayFor(modelItem => item.Cor)</td>
+                <td>@item.Valor.ToString("C")</td> <!-- Formatar o valor como moeda -->
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">
+                        <i class="fas fa-info-circle"></i> Detalhes
+                    </a>
+                    <a asp-action="AdicionarAoCarrinho" asp-route-id="@item.Id" class="btn btn-success">
+                        <i class="fas fa-cart-plus"></i> Adicionar ao Carrinho
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <!-- Adicione o link para Font Awesome, se ainda não estiver incluído -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+}
