@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using majulicroche.Data;
 using majulicroche.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace majulicroche.Controllers
 {
+    [Authorize]
     public class FornecedorsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -54,7 +56,7 @@ namespace majulicroche.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Contato,Email,Telefone")] Fornecedor fornecedor)
+        public async Task<IActionResult> Create([Bind("Id,Nome,Contato,Email,Endereco")] Fornecedor fornecedor)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +88,7 @@ namespace majulicroche.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Contato,Email,Telefone")] Fornecedor fornecedor)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Contato,Email,Endereco")] Fornecedor fornecedor)
         {
             if (id != fornecedor.Id)
             {

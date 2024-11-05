@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using majulicroche.Data;
 using majulicroche.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace majulicroche.Controllers
 {
+    [Authorize]
     public class MaterialsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -43,27 +45,24 @@ namespace majulicroche.Controllers
             return View(material);
         }
 
-        // GET: Materials/Create
+        // GET: Materiais/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Materials/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Materiais/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Nome,Tipo,Quantidade")] Material material)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(material); // Adiciona o material ao contexto
-                await _context.SaveChangesAsync(); // Salva as alterações no banco de dados
-                TempData["SuccessMessage"] = "Material criado com sucesso!";
-                return RedirectToAction(nameof(Index)); // Redireciona para a lista de materiais
+                _context.Add(material);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-            return View(material); // Retorna a View com o material, se o modelo não for válido
+            return View(material);
         }
 
         // GET: Materials/Edit/5

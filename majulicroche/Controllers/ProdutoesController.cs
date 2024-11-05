@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using majulicroche.Data;
 using majulicroche.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace majulicroche.Controllers
 {
+    [Authorize]
     public class ProdutoesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -60,29 +62,25 @@ namespace majulicroche.Controllers
             return View(produto);
         }
 
-        // GET: Produtoes/Create
+        // GET: Produtos/Create
         public IActionResult Create()
         {
-            ViewData["CategoriaId"] = new SelectList(_context.Categorias, "Id", "Nome");
+            ViewBag.CategoriaId = new SelectList(_context.Categorias, "Id", "Nome");
             return View();
         }
 
-        // POST: Produtoes/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Produtos/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Nome,Tamanho,Cor,Valor,CategoriaId")] Produto produto)
         {
             if (ModelState.IsValid)
             {
-                Categoria categoria = _context.Categorias.Find(produto.CategoriaId);
-                produto.Categoria = categoria;
                 _context.Add(produto);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoriaId"] = new SelectList(_context.Categorias, "Id", "Nome", produto.CategoriaId);
+            ViewBag.CategoriaId = new SelectList(_context.Categorias, "Id", "Nome", produto.CategoriaId);
             return View(produto);
         }
 
@@ -99,7 +97,7 @@ namespace majulicroche.Controllers
             {
                 return NotFound();
             }
-            ViewData["CategoriaId"] = new SelectList(_context.Categorias, "Id", "Id", produto.CategoriaId);
+            ViewData["CategoriaId"] = new SelectList(_context.Categorias, "Id", "Nome", produto.CategoriaId);
             return View(produto);
         }
 

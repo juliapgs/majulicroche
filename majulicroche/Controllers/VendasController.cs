@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace majulicroche.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class VendasController : Controller
     {
         private readonly ApplicationDbContext _context;

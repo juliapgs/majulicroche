@@ -1,43 +1,95 @@
-﻿@model IEnumerable<majulicroche.Models.Produto>
+﻿@model Tuple<IEnumerable<majulicroche.Models.Produto>, IEnumerable<majulicroche.Models.Cupom>>
 
 @{
-    ViewData["Title"] = "Apresentacao";
+    ViewData["Title"] = "Apresentação";
+    var produtos = Model.Item1;
+    var cupons = Model.Item2;
 }
 
-<h1>Produtos</h1>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Seção principal com os produtos -->
+        <div class="col-md-9">
+            <h2 style ="color: deeppink;">Nossos Produtos</h2>
 
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Nome</th>
-            <th>Tamanho</th>
-            <th>Cor</th>
-            <th>Valor</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@Html.DisplayFor(modelItem => item.Nome)</td>
-                <td>@Html.DisplayFor(modelItem => item.Tamanho)</td>
-                <td>@Html.DisplayFor(modelItem => item.Cor)</td>
-                <td>@item.Valor.ToString("C")</td> <!-- Formatar o valor como moeda -->
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">
-                        <i class="fas fa-info-circle"></i> Detalhes
-                    </a>
-                    <a asp-action="AdicionarAoCarrinho" asp-route-id="@item.Id" class="btn btn-success">
-                        <i class="fas fa-cart-plus"></i> Adicionar ao Carrinho
-                    </a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+            @if (produtos == null || !produtos.Any())
+            {
+                <p>Ainda não temos produtos cadastrados.</p>
+            }
+            else
+            {
+                <div class="row">
+                    @foreach (var item in produtos)
+                    {
+                        <div class="col-md-3 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <!-- Espaço reservado para imagem futura -->
+                                    <div class="mb-3 text-center" style="height: 150px; background-color: #f8f9fa; display: flex; align-items: center; justify-content: center;">
+                                        <span class="text-muted">Imagem do Produto</span>
+                                    </div>
+                                    <h5 class="card-title">@item.Nome</h5>
+                                    <p class="card-text">Tamanho: @item.Tamanho</p>
+                                    <p class="card-text">Cor: @item.Cor</p>
+                                    <p class="card-text">Valor: @item.Valor.ToString("C")</p>
 
-@section Scripts {
-    <!-- Adicione o link para Font Awesome, se ainda não estiver incluído -->
+                                    <!-- Botão para adicionar ao carrinho -->
+                                    <button class="btn btn-primary"> <!-- onclick="adicionarAoCarrinho(@item.Id)" -->
+                                        <i class="fas fa-shopping-cart"></i> Add ao Carrinho
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+
+        <!-- Barra lateral com os cupons -->
+        <div class="col-md-3">
+            <h4 style="color: deeppink;"> <i class="fas fa-tag"></i> Cupons Disponíveis</h4>
+
+            @if (cupons == null || !cupons.Any())
+            {
+                <p>Não há cupons disponíveis no momento.</p>
+            }
+            else
+            {
+                <ul class="list-group">
+                    @foreach (var cupom in cupons.Where(c => c.DataValidade >= DateTime.Now))
+                    {
+                        <li class="list-group-item">
+                            <strong>@cupom.Codigo</strong> - Desconto: @cupom.ValorDesconto%
+                            <br />
+                            Válido até: @cupom.DataValidade.ToShortDateString()
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <!-- <script>
+         // Função para adicionar o produto ao carrinho
+         function adicionarAoCarrinho(produtoId) {
+             // Chama o método do controller usando AJAX
+             fetch(`/Carrinho/Adicionar/${produtoId}`, { method: 'POST' })
+                 .then(response => {
+                     if (response.ok) {
+                         alert("Produto adicionado ao carrinho com sucesso!");
+                     } else {
+                         alert("Erro ao adicionar o produto ao carrinho.");
+                     }
+                 })
+                 .catch(error => {
+                     console.error("Erro:", error);
+                     alert("Erro ao adicionar o produto ao carrinho.");
+                 });
+         }
+     </script> -->
+     
+    <!-- Outros links e scripts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 }
