@@ -31,7 +31,7 @@ namespace majulicroche.Services
 
         public async Task Execute(string apiKey, string subject, string message, string toEmail)
         {
-            var client = new SendGridClient("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"); 
+            var client = new SendGridClient(""); 
             var msg = new SendGridMessage()
             {
                 From = new EmailAddress("juliapg3404@gmail.com", "Majuli"),
