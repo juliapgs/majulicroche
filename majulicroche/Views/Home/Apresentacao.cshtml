@@ -59,7 +59,7 @@
                     @foreach (var cupom in cupons.Where(c => c.DataValidade >= DateTime.Now))
                     {
                         <li class="list-group-item">
-                            <strong>@cupom.Codigo</strong> - Desconto: @cupom.ValorDesconto%
+                            <strong>@cupom.Codigo</strong> - Desconto: @cupom.ValorDesconto
                             <br />
                             Válido até: @cupom.DataValidade.ToShortDateString()
                         </li>

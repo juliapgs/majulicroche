@@ -16,7 +16,7 @@ namespace majulicroche.Models
         public Categoria? Categoria { get; set; } // Relacionamento com Categoria
 
         // Relacionamento muitos-para-muitos com Material
-        public required ICollection<ProdutoMaterial> ProdutoMateriais { get; set; }
+        public ICollection<ProdutoMaterial>? ProdutoMateriais { get; set; }
     }
 
 }

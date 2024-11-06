@@ -16,7 +16,7 @@ namespace majulicroche.Models
         public int Quantidade { get; set; }
 
         // Relacionamento muitos-para-muitos com Produto
-        public required ICollection<ProdutoMaterial> ProdutoMateriais { get; set; }
+        public ICollection<ProdutoMaterial>? ProdutoMateriais { get; set; }
     }
 
 }
